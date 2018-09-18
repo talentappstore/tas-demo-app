@@ -21,20 +21,37 @@ public class TasAPIController
     this.tenantService = tenantService;
   }
 
+  /**
+   * This endpoint will be called by TalentAppStore when a tenant installs your app.
+   *
+   * @param tenant
+   */
   @PostMapping("/tas/core/tenants")
   public void installTenant(@RequestBody Tenant tenant)
   {
     tenantService.createTenant(tenant);
   }
 
+  /**
+   * This endpoint will be called by TalentAppStore when a tenant uninstalls your app.
+   *
+   * @param tenantShortCode
+   */
   @DeleteMapping("/tas/core/tenants/{tenant}")
   public void uninstallTenant(@PathVariable("tenant") String tenantShortCode)
   {
     tenantService.uninstallTenant(tenantShortCode);
   }
 
+  /**
+   * This endpoint is called by TalentAppStore to retrieve the status of your app for a given tenant.
+   *
+   * @param tenantShortCode
+   * @return
+   * @throws Exception
+   */
   @GetMapping("/t/{tenant}/tas/devs/tas/appStatus")
-  public AppStatus appStatus(@PathVariable("tenant") String tenantShortCode) throws Exception
+  public AppStatus appStatus(@PathVariable("tenant") String tenantShortCode)
   {
     return tenantService.getTenantStatus(tenantShortCode);
   }
