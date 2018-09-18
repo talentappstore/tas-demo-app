@@ -1,12 +1,15 @@
 # Talent App Store demo application
-The simplest of demo apps to show how to produce the following APIs that cater for:
+A simple demo app showing how to build a SpringBoot app that produces the following TalentAppStore APIs to cater for:
  - Install (`POST /tas/core/tenants`) 
  - Uninstall (`DELETE /tas/core/tenants/{tenant}`)
  - appStatus (`GET /t/{tenant}/tas/devs/tas/appStatus`) 
+ 
+ See the developer documentation for more information
+ https://devdocs.talentappstore.com/doc/home.html
 
 ## Setup
 ###### Requirements
-- Java
+- Java (8+)
 - Gradle
 - ngrok (https://ngrok.com)
 
