@@ -1,0 +1,67 @@
+buildscript {
+    repositories {
+        mavenCentral()
+
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
+    }
+}
+
+plugins {
+    id "java"
+    id "maven"
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    def creds = {
+        username nexusUsername
+        password nexusPassword
+    }
+
+    maven {
+        url nexusMavenUrl
+        credentials creds
+    }
+
+    maven {
+        url nexusUrl
+        credentials creds
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+dependencies {
+
+    compile ("org.springframework.boot:spring-boot-starter-web")
+    {
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+    }
+    compile "org.springframework.boot:spring-boot-starter-jetty"
+    compile "org.springframework.boot:spring-boot-starter-freemarker"
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compile "org.apache.commons:commons-lang3"
+    compile "org.apache.httpcomponents:httpclient"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile 'org.assertj:assertj-core:3.9.0'
+}
+
+bootJar {
+    baseName = "app"
+}
+
+bootRun {
+    sourceResources sourceSets.main
+}
+
+springBoot {
+    buildInfo()
+}
+
+
